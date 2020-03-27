@@ -1,3 +1,9 @@
+import numpy as np
+import math
+import random
+from matplotlib import pyplot as plt
+from IPython.display import clear_output
+
 def viral_spread(population,hour,initial,movement):
   time =hour*4
   grid_space=int(math.sqrt(population))
