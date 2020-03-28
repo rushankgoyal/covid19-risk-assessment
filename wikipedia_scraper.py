@@ -26,4 +26,4 @@ def get_tests(country):
     list_tests += str(cells[0])
   list_tests = list_tests.replace('<td>','').replace('</td>','').replace(',','').replace('\n',' ').split(' ')
   
-  return (list_tests[country_list.index('United States')] if 'United States' in country_list else 0)
+  return (list_tests[country_list.index(country)] if country in country_list else 0)
