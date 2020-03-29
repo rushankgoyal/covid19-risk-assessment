@@ -55,6 +55,7 @@
         xhr.send(params);
         if (xhr.status === 200) {
           console.log("test")
+          console.log(xhr.responseText);
           document.getElementById("test-cases").innerText="Test Cases: "+xhr.responseText;
 	}
 	
