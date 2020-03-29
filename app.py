@@ -27,7 +27,7 @@ def get_active_cases():
     i = df.loc[df['Country,Other']==country_name].index[0]
     active_cases = df['ActiveCases'][i]
 
-    return jsonify(cases=active_cases)
+    return str(active_cases)
 
 
 @app.route("/get-countries")
