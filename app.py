@@ -81,7 +81,7 @@ def get_infection_count():
 @app.route("/get-tests")
 def get_tests_by_country():
     country = str(request.args.get("country", "USA"))
-    return jsonify(number_of_tests=get_tests(country))
+    return str(get_tests(country))
     
 def viral_spread(population,time,initial,movement):
     grid_space=int(math.sqrt(population))
