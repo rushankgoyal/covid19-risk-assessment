@@ -84,8 +84,7 @@ def get_tests_by_country():
     country = str(request.args.get("country", "USA"))
     return jsonify(number_of_tests=get_tests(country))
     
-def viral_spread(population,hour,initial,movement):
-    time =hour*4
+def viral_spread(population,time,initial,movement):
     grid_space=int(math.sqrt(population))
     grid=np.zeros((grid_space,grid_space))
     for i in range(0,initial):
@@ -99,7 +98,7 @@ def viral_spread(population,hour,initial,movement):
     ax.set_yticks(np.arange(0, grid_space, 1));
     ax.set_xticklabels(np.arange(1, grid_space+1, 1));
     ax.set_yticklabels(np.arange(1, grid_space+1, 1));
-    spread_chance=[0]*94+[1]*6
+    spread_chance=[0]*76+[1]*24
     plot_list=[]
     infectioncount=[]
 
@@ -109,7 +108,7 @@ def viral_spread(population,hour,initial,movement):
             if grid[i,j]==1:
               for a in range(-1,2):
                 for b in range (-1,2):
-                  grid[a,b] = random.choice(spread_chance)
+                  grid[a+i,b+j] = random.choice(spread_chance)
               x_switch=0
               y_switch=0
               x_switch=i+np.random.randint(-movement,movement+1)
@@ -128,8 +127,7 @@ def viral_spread(population,hour,initial,movement):
     return (infectioncount[-1],plot_list)
 
 
-def viral_spread_no_gif(population,hour,initial,movement):
-    time =hour*4
+def viral_spread_no_gif(population,time,initial,movement):
     grid_space=int(math.sqrt(population))
     grid=np.zeros((grid_space,grid_space))
     for i in range(0,initial):
@@ -137,7 +135,7 @@ def viral_spread_no_gif(population,hour,initial,movement):
         y0=np.random.randint(0,grid_space-1)
         grid[x0,y0]=1
 
-    spread_chance=[0]*94+[1]*6
+    spread_chance=[0]*76+[1]*24
     infectioncount=[]
 
     for a in range(0,time): 
@@ -146,7 +144,7 @@ def viral_spread_no_gif(population,hour,initial,movement):
                 if grid[i,j]==1:
                   for a in range(-1,2):
                     for b in range (-1,2):
-                      grid[a,b] = random.choice(spread_chance)
+                      grid[a+i,b+j] = random.choice(spread_chance)
                   x_switch=0
                   y_switch=0
                   x_switch=i+np.random.randint(-movement,movement+1)
