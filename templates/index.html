@@ -63,16 +63,12 @@
 	}
     }
     </script>
-    <h3>Enter Size of Event</h3>
+    <h3>Enter Number of People at Event</h3>
     <input type="number" class="form-control" id="event-size" placeholder="Enter Size of Event" aria-label="event-size" aria-describedby="basic-addon1">
-    
-    <h3 style="margin=5;">Enter Duration of Event(hours)</h3>
-    <input type="number" class="form-control" id="event-length" placeholder="Enter Duration of Event" aria-label="event-length" aria-describedby="basic-addon1">
-
-    <h3>Enter Initial Infections</h3>
-    <input type="number" class="form-control" id="event-infections" placeholder="Enter Initial Infections" aria-label="event-infections" aria-describedby="basic-addon1">
-
-
+    <br>
+    <h3 style="margin=5;">Enter Duration of Event in hours</h3>
+    <input type="number" class="form-control" id="event-length" placeholder="Enter Duration of Event" aria-label="event-length" aria-describedby="basic-addon1"> 
+    <br>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Select Country</label>
@@ -84,13 +80,17 @@
        {% endfor %}
       </select>
     </div>
+    <br>
+    <h3>Enter Initial Infections</h3>
+    <input type="number" class="form-control" id="event-infections" placeholder="Enter Initial Infections" aria-label="event-infections" aria-describedby="basic-addon1">
+    <br>
 
     <button name="enter" onclick="getSimulation()" type="button" style="margin: 5pt; margin-bottom: 10pt;" class="btn btn-success">Get Simulation</button>
 
 
     <h3 id="infected">Infection Count: </h3>
-    <h3 id="active-cases">Active Cases: </h3>
-    <h3 id="test-cases">Test Cases: </h3>
+    <h3 id="active-cases">Active Cases in Your Country: </h3>
+    <h3 id="test-cases">Tests Conducted in Your Country: </h3>
 
     <img id="simage" src="" alt="simulation should appear here">
 {% endblock %}
