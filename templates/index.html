@@ -5,27 +5,32 @@
     document.cookie = "db-backUrl=" + window.location.href+";";
     
     function getSimulation() {
-        var xhr = new XMLHttpRequest();
+        document.getElementById("simage").src ="";
+	    var xhr = new XMLHttpRequest();
         console.log("1")
         var params = "population=" + document.getElementById("event-size").value + "&time=" + document.getElementById("event-length").value  + "&initial="+ document.getElementById("event-infections").value 
-        xhr.open("GET", '/sim-viral-spread', true);
+        xhr.open("GET", '/sim-viral-spread?'+params,false);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send();
-        if (request.status === 200) {
-          console.log(request.responseText);
-          document.getElementById("simage").src = window.location.origin + "/static/out.gif"
-        }
+        xhr.send(params);
+        if (xhr.status === 200) {
+          console.log("test")
+          console.log(xhr.responseText);
+          document.getElementById("simage").src = "../static/out.gif"
+          console.log("test")
+		    alert("image should now be switched");
+
+	}
 
     }
     </script>
     <h3>Enter Size of Event</h3>
-    <input type="number" class="form-control" placeholder="Enter Size of Event" aria-label="event-size" aria-describedby="basic-addon1">
+    <input type="number" class="form-control" id="event-size" placeholder="Enter Size of Event" aria-label="event-size" aria-describedby="basic-addon1">
     
-    <h3>Enter Duration of Event(hours)</h3>
-    <input type="number" class="form-control" placeholder="Enter Duration of Event" aria-label="event-length" aria-describedby="basic-addon1">
+    <h3 style="margin=5;">Enter Duration of Event(hours)</h3>
+    <input type="number" class="form-control" id="event-length" placeholder="Enter Duration of Event" aria-label="event-length" aria-describedby="basic-addon1">
 
     <h3>Enter Initial Infections</h3>
-    <input type="number" class="form-control" placeholder="Enter Initial Infections" aria-label="event-infections" aria-describedby="basic-addon1">
+    <input type="number" class="form-control" id="event-infections" placeholder="Enter Initial Infections" aria-label="event-infections" aria-describedby="basic-addon1">
 
 
     <div class="input-group mb-3">
@@ -35,7 +40,7 @@
       <select class="custom-select" id="inputGroupSelect01">
        <option selected>Choose...</option>
        {% for country in countries %}
-        <option value=country>country</option>
+       <option value={{country}}>{{country}}</option>
        {% endfor %}
       </select>
     </div>
@@ -43,5 +48,5 @@
     <button name="enter" onclick="getSimulation()" type="button" style="margin: 5pt; margin-bottom: 10pt;" class="btn btn-success">Get Simulation</button>
 
 
-    <img name="simage" src="" alt="simulation should appear here">
+    <img id="simage" src="" alt="simulation should appear here">
 {% endblock %}

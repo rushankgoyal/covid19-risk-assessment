@@ -17,7 +17,8 @@ from urllib.request import urlopen
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    df = get_covid_df()
+    return render_template('index.html', countries=df['Country,Other'].values.tolist())
 
 @app.route("/get-active-cases")
 def get_active_cases():
@@ -53,8 +54,6 @@ def sim_viral_spread():
     initial = int(request.args.get("initial", 0)) 
     movement = int(request.args.get("movement", 20))
     
-    if(time < 5):
-        return "Error, enter a time higher than 5"
     if(time == 0 or population == 0 or initial == 0):
         return "Please enter valid arguments"
     ls = viral_spread(population, time, initial, movement)
