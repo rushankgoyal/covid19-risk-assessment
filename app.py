@@ -76,7 +76,7 @@ def get_infection_count():
     if(time == 0 or population == 0 or initial == 0):
         return "Please enter valid arguments"
     infections = viral_spread_no_gif(population, time, initial, movement)
-    return jsonify(infections=infections)
+    return str(infections)
 
 @app.route("/get-tests")
 def get_tests_by_country():
