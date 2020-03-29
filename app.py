@@ -27,7 +27,7 @@ def get_active_cases():
     i = df.loc[df['Country,Other']==country_name].index[0]
     active_cases = df['ActiveCases'][i]
 
-    return jsonify(cases=active_cases)
+    return str(active_cases)
 
 
 @app.route("/get-countries")
@@ -76,12 +76,12 @@ def get_infection_count():
     if(time == 0 or population == 0 or initial == 0):
         return "Please enter valid arguments"
     infections = viral_spread_no_gif(population, time, initial, movement)
-    return jsonify(infections=infections)
+    return str(infections)
 
 @app.route("/get-tests")
 def get_tests_by_country():
     country = str(request.args.get("country", "USA"))
-    return jsonify(number_of_tests=get_tests(country))
+    return str(get_tests(country))
     
 def viral_spread(population,time,initial,movement):
     grid_space=int(math.sqrt(population))

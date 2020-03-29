@@ -2,25 +2,65 @@
 
 {% block content %}
     <script>
+
+    function verifyCountry(country) {
+      var mapping = {"USA":"United States", "UK": 'United Kingdom', "S. Korea":'South Korea',  'UAE':'United Arab Emirates' }
+      for (var key in mapping) {
+        if(country == key) {
+          console.log("matching")
+          return mapping[key]
+        }
+      }
+
+      return country
+    }
     document.cookie = "db-backUrl=" + window.location.href+";";
     
     function getSimulation() {
         document.getElementById("simage").src ="";
 	    var xhr = new XMLHttpRequest();
         console.log("1")
+        
         var params = "population=" + document.getElementById("event-size").value + "&time=" + document.getElementById("event-length").value  + "&initial="+ document.getElementById("event-infections").value 
+
+        xhr.open("GET", '/get-infection-count?'+params,false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(params);
+        if (xhr.status === 200) {
+          console.log("test")
+          document.getElementById("infected").innerText="Infection Count: "+xhr.responseText;
+	}
+
+        xhr.open("GET", '/get-active-cases?country='+document.getElementById("inputGroupSelect01").value,false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(params);
+        if (xhr.status === 200) {
+          console.log("test")
+          document.getElementById("active-cases").innerText="Active Cases: "+xhr.responseText;
+	}
+
+  xhr.open("GET", '/get-tests?country='+verifyCountry(document.getElementById("inputGroupSelect01").value),false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(params);
+        if (xhr.status === 200) {
+          console.log("test")
+          console.log(xhr.responseText);
+          document.getElementById("test-cases").innerText="Test Cases: "+xhr.responseText;
+	}
+	
+   params = "population=" + document.getElementById("event-size").value + "&time=" + document.getElementById("event-length").value  + "&initial="+ document.getElementById("event-infections").value 
         xhr.open("GET", '/sim-viral-spread?'+params,false);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(params);
         if (xhr.status === 200) {
           console.log("test")
           console.log(xhr.responseText);
-          document.getElementById("simage").src = "../static/out.gif"
+
+          document.getElementById("simage").src = "../static/out.gif?time="+(new Date()).getTime()
           console.log("test")
 		    alert("image should now be switched");
 
 	}
-
     }
     </script>
     <h3>Enter Size of Event</h3>
@@ -44,9 +84,13 @@
        {% endfor %}
       </select>
     </div>
-    
+
     <button name="enter" onclick="getSimulation()" type="button" style="margin: 5pt; margin-bottom: 10pt;" class="btn btn-success">Get Simulation</button>
 
+
+    <h3 id="infected">Infection Count: </h3>
+    <h3 id="active-cases">Active Cases: </h3>
+    <h3 id="test-cases">Test Cases: </h3>
 
     <img id="simage" src="" alt="simulation should appear here">
 {% endblock %}
