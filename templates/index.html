@@ -20,19 +20,7 @@
         document.getElementById("simage").src ="";
 	    var xhr = new XMLHttpRequest();
         console.log("1")
-        var params = "population=" + document.getElementById("event-size").value + "&time=" + document.getElementById("event-length").value  + "&initial="+ document.getElementById("event-infections").value 
-        xhr.open("GET", '/sim-viral-spread?'+params,false);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(params);
-        if (xhr.status === 200) {
-          console.log("test")
-          console.log(xhr.responseText);
-
-          document.getElementById("simage").src = "../static/out.gif?time="+(new Date()).getTime()
-          console.log("test")
-		    alert("image should now be switched");
-
-	}
+        
 
         xhr.open("GET", '/get-infection-count?'+params,false);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -59,6 +47,19 @@
           document.getElementById("test-cases").innerText="Test Cases: "+xhr.responseText;
 	}
 	
+  var params = "population=" + document.getElementById("event-size").value + "&time=" + document.getElementById("event-length").value  + "&initial="+ document.getElementById("event-infections").value 
+        xhr.open("GET", '/sim-viral-spread?'+params,false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(params);
+        if (xhr.status === 200) {
+          console.log("test")
+          console.log(xhr.responseText);
+
+          document.getElementById("simage").src = "../static/out.gif?time="+(new Date()).getTime()
+          console.log("test")
+		    alert("image should now be switched");
+
+	}
     }
     </script>
     <h3>Enter Size of Event</h3>
